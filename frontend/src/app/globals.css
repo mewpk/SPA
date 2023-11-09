@@ -25,3 +25,12 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* UserCard.module.css */
+.userCard {
+  transition: all 0.3s ease;
+}
+
+.userCard:hover {
+  transform: scale(1.1);
+}
