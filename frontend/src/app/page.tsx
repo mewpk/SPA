@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-screen">
     <button className='bg-blue-400 p-3 rounded-full text-white border border-black font-bold' onClick={handleOpenModal}>Create User</button>
     {users.map((user, index) => (
       <UserCard key={index} name={user.name} email={user.email} />
