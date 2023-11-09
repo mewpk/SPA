@@ -1,45 +1,40 @@
 "use client";
 
-import {UserCard , CreateUserModal} from '@/components';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { userState } from '@/types';
+import { UserCard, CreateUserModal } from "@/components";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { userState } from "@/types";
 
 export default function Home() {
-  const [users, setUsers] = useState <userState[]>([]);
+  const [users, setUsers] = useState<userState[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-   
     fetchUsers();
   }, []);
-  
+
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('/api/user'); // Replace with your backend API endpoint
+      const response = await axios.get("/api/user"); // Replace with your backend API endpoint
       setUsers(response.data);
-      console.log(response , response.data);
-      
+      console.log(response, response.data);
     } catch (error) {
-      console.error('Failed to fetch users:', error);
+      console.error("Failed to fetch users:", error);
     }
   };
 
-  const onCreateUser = async (name : string , email : string) => {
+  const onCreateUser = async (name: string, email: string) => {
     try {
-      const data = {"name" : name , "email" : email}
-      const response = await axios.post('/api/user',data);
-      
+      const data = { name: name, email: email };
+      const response = await axios.post("/api/user", data);
     } catch (error) {
-      console.error('Failed to fetch users:', error);
-    }
-    finally{
+      console.error("Failed to fetch users:", error);
+    } finally {
       fetchUsers();
     }
-  }
+  };
 
-
- const handleOpenModal = () => {
+  const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
@@ -49,11 +44,23 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-    <button className='bg-blue-400 p-3 rounded-full text-white border border-black font-bold' onClick={handleOpenModal}>Create User</button>
-    {users.map((user, index) => (
-      <UserCard key={index} name={user.name} email={user.email} />
-    ))}
-    <CreateUserModal isOpen={isModalOpen} onClose={handleCloseModal} onCreateUser={onCreateUser} />
-  </div>
+      <button
+        className="bg-blue-400 p-3 rounded-full text-white border border-black font-bold"
+        onClick={handleOpenModal}
+      >
+        Create User
+      </button>
+      <div className="flex py-4">
+        {users.map((user, index) => (
+          <UserCard key={index} name={user.name} email={user.email} />
+        ))}
+      </div>
+
+      <CreateUserModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onCreateUser={onCreateUser}
+      />
+    </div>
   );
 }
