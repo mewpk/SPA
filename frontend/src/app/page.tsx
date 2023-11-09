@@ -10,19 +10,30 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/api/users'); // Replace with your backend API endpoint
-        setUsers(response.data);
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-      }
-    };
+   
     fetchUsers();
   }, []);
+  
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('/api/user'); // Replace with your backend API endpoint
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+    }
+  };
 
   const onCreateUser = async (name : string , email : string) => {
-    
+    try {
+      const data = {"name" : name , "email" : email}
+      const response = await axios.post('/api/user',data);
+      
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+    }
+    finally{
+      fetchUsers();
+    }
   }
 
 
