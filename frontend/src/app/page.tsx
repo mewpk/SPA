@@ -18,6 +18,8 @@ export default function Home() {
     try {
       const response = await axios.get('/api/user'); // Replace with your backend API endpoint
       setUsers(response.data);
+      console.log(response , response.data);
+      
     } catch (error) {
       console.error('Failed to fetch users:', error);
     }
