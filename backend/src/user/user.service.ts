@@ -8,7 +8,7 @@ export class UserService {
 
     async getUsers() {
         try {
-            const user = await this.prisma.User.findMany()
+            const user = await this.prisma.user.findMany()
             return user
         }
         catch (error) {
@@ -20,7 +20,7 @@ export class UserService {
     }
     async createUser(dto : userDTO) {
         try {
-            const user = await this.prisma.User.create({
+            const user = await this.prisma.user.create({
                 data: {
                     name: dto.name,
                     email: dto.email
